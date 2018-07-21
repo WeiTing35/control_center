@@ -16,6 +16,8 @@
 #include "ui_main_window.h"
 #include "qnode.hpp"
 
+
+
 /*****************************************************************************
 ** Namespace
 *****************************************************************************/
@@ -41,6 +43,8 @@ public:
 	void closeEvent(QCloseEvent *event); // Overloaded function
 	void showNoMasterMessage();
         void showButtonTestMessage();
+
+        //float throttle;
 
 public Q_SLOTS:
 	/******************************************

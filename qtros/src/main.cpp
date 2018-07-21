@@ -13,6 +13,11 @@
 #include <QApplication>
 #include "../include/qtros/main_window.hpp"
 
+
+
+
+
+ //float throttle;
 /*****************************************************************************
 ** Main
 *****************************************************************************/
@@ -27,6 +32,9 @@ int main(int argc, char **argv) {
     w.show();
     app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     int result = app.exec();
+
+    //for show
+
 
 	return result;
 }

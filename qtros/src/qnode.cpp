@@ -15,14 +15,16 @@
 #include <string>
 #include <std_msgs/String.h>
 #include <std_msgs/Float64.h>
-//#include <dbw_mkz_msgs/ThrottleInfoReport.msg>
+#include <stdio.h>
 #include <sstream>
 #include <iostream>
 #include "../include/qtros/qnode.hpp"
 
+
 /*****************************************************************************
 ** Namespaces
 *****************************************************************************/
+using namespace std;
 
 namespace qtros {
 
@@ -57,7 +59,7 @@ bool QNode::init() {
 
 
     chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
-    //throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
+    throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
 
 	start();
 	return true;
@@ -75,10 +77,27 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 	ros::NodeHandle n;
 	// Add your ros communications here.
     //chatter_publisher = n.advertise<std_msgs::String>("chatter11", 1000);
-    chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
+    //chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
+    throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
+
 	start();
 	return true;
 }
+
+void QNode::throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr  &throttle_holder)
+{
+   // qtros::QNode::MainWindow::
+
+    throttle=(throttle_holder->throttle_pc)*100;
+    //ui.progressBar->setValue(throttle);
+    //std::stringstream ss;
+    cout << (throttle_holder->throttle_pc)*100 <<" %"<< endl;
+    //ss << message_holder.data;
+    //log(Info, message_holder);
+    //ROS_INFO("check ThrottleInfoReport");
+    //really could do something interesting here with the received data...but all we do is print it
+}
+
 
 void QNode::myCallback(const std_msgs::Float64& message_holder)
 {
@@ -110,6 +129,7 @@ void QNode::run() {
 
     ros::NodeHandle n;
         chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
+        throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
         ros::spin();
 
         std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;

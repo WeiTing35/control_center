@@ -25,6 +25,8 @@
 #include <QThread>
 #include <QStringListModel>
 #include <std_msgs/Float64.h>
+#include <dbw_mkz_msgs/ThrottleInfoReport.h>
+
 
 /*****************************************************************************
 ** Namespaces
@@ -45,7 +47,7 @@ public:
 	bool init(const std::string &master_url, const std::string &host_url);
 	void run();
         void myCallback(const std_msgs::Float64& message_holder);
-       //void  myCallback(const std_msgs::Float64& message_holder)
+        void throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr &message_holder);
 	/*********************
 	** Logging
 	**********************/
@@ -60,6 +62,8 @@ public:
 	QStringListModel* loggingModel() { return &logging_model; }
         void log( const LogLevel &level, const std_msgs::Float64 &msg);
         //void log1( const LogLevel &level, const std_msgs::Float64 &msg);
+        float throttle;
+        //static const int a;
 Q_SIGNALS:
 	void loggingUpdated();
         void rosShutdown();
@@ -71,6 +75,7 @@ private:
         ros::Subscriber chatter_subscriber;
         ros::Subscriber throttle_subscriber;
         QStringListModel logging_model;
+
 };
 
 }  // namespace qtros

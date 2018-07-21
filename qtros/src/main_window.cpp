@@ -63,7 +63,13 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
         on_button_connect_clicked(true);
     }
 
-   //QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft()));
+   //QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft())); ui.progressBar->setValue(11);
+   //show=qtros::QNode::throttle;
+
+   //ui.progressBar->setValue(qtros::QNode::throttle);
+   //ui.progressBar->setValue(77.5);
+   //ui.progressBar->setValue(qtros::QNode::a);
+   //connect(SIGNAL(float throttle(int)),ui.progressBar,SLOT(setValue(int)));
 }
 
 MainWindow::~MainWindow() {}
@@ -96,7 +102,7 @@ void MainWindow::moveLeft() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-//conect
+//connect
 void MainWindow::on_button_connect_clicked(bool check ) {
 	if ( ui.checkbox_use_environment->isChecked() ) {
 		if ( !qnode.init() ) {
@@ -211,10 +217,10 @@ void MainWindow::ReadSettings() {
     restoreState(settings.value("windowState").toByteArray());
     QString master_url = settings.value("master_url",QString("http://meclab:11311/")).toString();
     QString host_url = settings.value("host_url", QString("192.168.0.112")).toString();
-    QString topic_name = settings.value("topic_name", QString("/chatter")).toString();
+    //QString topic_name = settings.value("topic_name", QString("/chatter")).toString();
     ui.line_edit_master->setText(master_url);
     ui.line_edit_host->setText(host_url);
-    ui.line_edit_topic->setText(topic_name);
+    //ui.line_edit_topic->setText(topic_name);
     bool remember = settings.value("remember_settings", false).toBool();
     ui.checkbox_remember_settings->setChecked(remember);
     bool checked = settings.value("use_environment_variables", false).toBool();

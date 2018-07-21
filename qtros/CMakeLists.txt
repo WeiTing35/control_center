@@ -13,7 +13,7 @@ project(qtros)
 find_package(catkin REQUIRED COMPONENTS 
   qt_build 
   roscpp
-
+  dbw_mkz_msgs
   message_generation
   std_msgs
   geometry_msgs

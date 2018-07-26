@@ -18,6 +18,7 @@
 
 // To workaround boost/qt4 problems that won't be bugfixed. Refer to
 //    https://bugreports.qt.io/browse/QTBUG-22829
+
 #ifndef Q_MOC_RUN
 #include <ros/ros.h>
 #endif
@@ -25,7 +26,12 @@
 #include <QThread>
 #include <QStringListModel>
 #include <std_msgs/Float64.h>
+
+//Autoware msg
 #include <dbw_mkz_msgs/ThrottleInfoReport.h>
+#include <dbw_mkz_msgs/SteeringReport.h>
+
+#include "ui_main_window.h"
 
 
 /*****************************************************************************
@@ -48,7 +54,10 @@ public:
 	void run();
         void myCallback(const std_msgs::Float64& message_holder);
         void throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr &message_holder);
-	/*********************
+        void steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &message_holder);
+
+
+        /*********************
 	** Logging
 	**********************/
 	enum LogLevel {
@@ -62,7 +71,13 @@ public:
 	QStringListModel* loggingModel() { return &logging_model; }
         void log( const LogLevel &level, const std_msgs::Float64 &msg);
         //void log1( const LogLevel &level, const std_msgs::Float64 &msg);
-        float throttle;
+        //float throttle;
+
+       //車體資訊
+         int throttle;
+         float steering_angle;
+
+        //float* throttle;
         //static const int a;
 Q_SIGNALS:
 	void loggingUpdated();
@@ -74,6 +89,8 @@ private:
 	ros::Publisher chatter_publisher;
         ros::Subscriber chatter_subscriber;
         ros::Subscriber throttle_subscriber;
+        ros::Subscriber steeringreport_subscriber;
+
         QStringListModel logging_model;
 
 };

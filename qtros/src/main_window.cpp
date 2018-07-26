@@ -63,13 +63,25 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
         on_button_connect_clicked(true);
     }
 
-   //QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft())); ui.progressBar->setValue(11);
-   //show=qtros::QNode::throttle;
+   QObject::connect(ui.pushButton, SIGNAL(toggled(bool)), qApp, SLOT(refreshUi()));
+  // QObject::connect(ui.pushButton1, SIGNAL(toggled(bool)), this, SLOT(moveLeft()));
+   QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft()));
+   //ui.progressBar->setValue(11);
+   //ui.progressBar->setValue(11);
+   //show=qtros::QNode::throttle;int
 
-   //ui.progressBar->setValue(qtros::QNode::throttle);
-   //ui.progressBar->setValue(77.5);
+   // ui.progressBar->setValue(77.5);
+   // qtros::QNode::throttle=1;
+
+  //ui.progressBar->setValue(qtros::QNode::a);
+  //ui.progressBar->setValue(qtros::QNode::throttle);
+
+   //ui.progressBar->setValue(value);
    //ui.progressBar->setValue(qtros::QNode::a);
-   //connect(SIGNAL(float throttle(int)),ui.progressBar,SLOT(setValue(int)));
+   //connect(throttle,SIGNAL(valueChanged(int)),ui.progressBar,SLOT(setValue(int)));
+
+   //ui.listView_2->setModel("sss");
+
 }
 
 MainWindow::~MainWindow() {}
@@ -77,6 +89,9 @@ MainWindow::~MainWindow() {}
 /*****************************************************************************
 ** Implementation [Slots]
 *****************************************************************************/
+void MainWindow::refreshUi() {
+    ui.progressBar->setValue(qnode.throttle);
+}
 
 void MainWindow::showNoMasterMessage() {
 	QMessageBox msgBox;
@@ -121,6 +136,7 @@ void MainWindow::on_button_connect_clicked(bool check ) {
 			ui.line_edit_topic->setReadOnly(true);
 		}
 	}
+    //ui.progressBar->setValue(qnode.throttle);
 }
 
 
@@ -149,13 +165,39 @@ void MainWindow::showButtonTestMessage() {
 }
 
 
-//echo
-void MainWindow::on_pushButton_clicked(){
 
-    system("gnome-terminal -x bash -c  'source ~/catkin_ws/devel/setup.bash;  rostopic echo /chatter '");
+void MainWindow::on_pushButton_toggled(){
+
     //system("gnome-terminal -x bash -c  'source ~/catkin_ws/devel/setup.bash;  rostopic echo /chatter '");
+    //system("gnome-terminal -x bash -c  'source ~/catkin_ws/devel/setup.bash;  rostopic echo /chatter '");
+//    while(1){
+//        ui.progressBar->setValue(qnode.throttle);
+//        sleep(1);
+//    }
+    ui.progressBar->setValue(qnode.throttle);
+}
 
+//show
+void MainWindow::on_pushButton_clicked(bool check){
 
+   // while(ui.checkBox->isChecked()){
+     ui.progressBar->setValue(qnode.throttle);
+//    while(ui.checkBox->isChecked()){
+//        ui.progressBar->setValue(qnode.throttle);
+//    }
+
+    //steer angle
+    logging_model = qnode.loggingModel();
+    logging_model->insertRows(logging_model->rowCount(), 1);
+    std::stringstream logging_model_msg;
+    logging_model_msg << qnode.steering_angle;
+    QVariant new_row(QString(logging_model_msg.str().c_str()));
+    logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
+    std::cout << logging_model_msg.str().c_str() << std::endl;
+    //}
+    //setAutoRepeat (true);
+
+    ui.lcdNumber->display(qnode.steering_angle);
 }
 
 //showButtonTestMessage();

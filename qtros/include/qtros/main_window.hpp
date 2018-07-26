@@ -43,6 +43,7 @@ public:
 	void closeEvent(QCloseEvent *event); // Overloaded function
 	void showNoMasterMessage();
         void showButtonTestMessage();
+        void refreshUi();
 
         //float throttle;
 
@@ -55,8 +56,11 @@ public Q_SLOTS:
 	void on_checkbox_use_environment_stateChanged(int state);
         void on_button_test_clicked(bool check);
         void on_pushButton1_clicked(bool check) ;
-        void on_pushButton_clicked() ;
+
         void moveLeft();
+
+        void on_pushButton_toggled() ;
+        void on_pushButton_clicked(bool check) ;
     /******************************************
     ** Manual connections
     *******************************************/
@@ -66,6 +70,7 @@ private:
 	Ui::MainWindowDesign ui;
         QStringListModel* logging_model;
 	QNode qnode;
+        QLCDNumber *myLcd;
 };
 
 }  // namespace qtros

@@ -35,7 +35,7 @@ namespace qtros {
 QNode::QNode(int argc, char** argv ) :
 	init_argc(argc),
 	init_argv(argv)
-	{}
+    {}
 
 QNode::~QNode() {
     if(ros::isStarted()) {
@@ -60,6 +60,9 @@ bool QNode::init() {
 
     chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
+    steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
+
+
 
 	start();
 	return true;
@@ -75,23 +78,40 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 	}
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
-	// Add your ros communications here.
+    //Add your ros communications here.
     //chatter_publisher = n.advertise<std_msgs::String>("chatter11", 1000);
     //chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
+    steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
+
 
 	start();
 	return true;
 }
 
+
+void QNode::steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &steeringreport_holder)
+{
+    //steering_angle
+    steering_angle = (steeringreport_holder->steering_wheel_angle)*180/3.14159265359;
+
+
+    cout << steering_angle << endl;
+    //cout << (throttle_holder->throttle_pc)*100 <<"  %"<< endl;
+
+}
+
 void QNode::throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr  &throttle_holder)
 {
-   // qtros::QNode::MainWindow::
+    //qtros::QNode::MainWindow::
+    //&throttle = (throttle_holder->throttle_pc)*100;
+    float temp=(throttle_holder->throttle_pc)*100;
+    throttle= (int)temp;
 
-    throttle=(throttle_holder->throttle_pc)*100;
+    //cout<<throttle<<endl;
     //ui.progressBar->setValue(throttle);
     //std::stringstream ss;
-    cout << (throttle_holder->throttle_pc)*100 <<" %"<< endl;
+    //cout << (throttle_holder->throttle_pc)*100 <<"  %"<< endl;
     //ss << message_holder.data;
     //log(Info, message_holder);
     //ROS_INFO("check ThrottleInfoReport");
@@ -130,6 +150,8 @@ void QNode::run() {
     ros::NodeHandle n;
         chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
         throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
+        steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
+
         ros::spin();
 
         std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;

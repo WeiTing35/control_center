@@ -61,7 +61,7 @@ bool QNode::init() {
     chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
     steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
-
+    gear_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::gear_Callback, this);
 
 
 	start();
@@ -78,11 +78,13 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 	}
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
+
     //Add your ros communications here.
     //chatter_publisher = n.advertise<std_msgs::String>("chatter11", 1000);
     //chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
     steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
+    gear_subscriber = n.subscribe("vehicle/gear_report", 1000, &QNode::gear_Callback, this);
 
 
 	start();
@@ -90,13 +92,63 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// \brief Callback
+///////////////////////////////////////////////////
+void QNode::gear_Callback(const dbw_mkz_msgs::GearReportPtr  &gear_holder)
+{
+//  uint8_t a=1;
+
+    //const char *char_pointer2 = reinterpret_cast<char*>( gear_holder->state._gear_type);
+
+  if(gear_holder->state.gear == 1){
+      gear = "P (PARK)" ;
+  }
+  else if(gear_holder->state.gear == 2){
+      gear = "R (REVERSE)" ;
+  }
+  else if(gear_holder->state.gear == 3){
+      gear = "N (NEUTRAL)" ;
+  }
+  else if(gear_holder->state.gear == 4){
+      gear = "D (DRIVE)" ;
+  }
+  else if(gear_holder->state.gear == 5){
+      gear = "L (LOW)" ;
+  }
+
+//  uint8 NONE=0
+//  uint8 PARK=1
+//  uint8 REVERSE=2
+//  uint8 NEUTRAL=3
+//  uint8 DRIVE=4
+//  uint8 LOW=5
+
+  //char* chr_gear = gear;
+  //string str=gear;
+  //test1=str.c_str();
+  //vector<char> chr_gear(str.c_str(), str.c_str() + str.size() + 1);
+  cout << gear_holder->state.gear << endl;
+  //const char *char_pointer2 = reinterpret_cast<char*>(gear_holder->state.Type);
+  //cout << char_pointer2 << endl;
+  //cout << gear_holder->state.  << endl;
+  //cout << str << endl;
+}
+
+
+
 void QNode::steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &steeringreport_holder)
 {
     //steering_angle
     steering_angle = (steeringreport_holder->steering_wheel_angle)*180/3.14159265359;
+    // Vehicle Speed
+    vehicle_speed = (steeringreport_holder->speed)*3600/1000; //(m/s)to(km/hour)
 
 
-    cout << steering_angle << endl;
+    //cout << steering_angle << " °"<< endl;
+    //cout << vehicle_speed << " (km/hr)" << endl;
+
+
     //cout << (throttle_holder->throttle_pc)*100 <<"  %"<< endl;
 
 }
@@ -108,15 +160,7 @@ void QNode::throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr  &t
     float temp=(throttle_holder->throttle_pc)*100;
     throttle= (int)temp;
 
-    //cout<<throttle<<endl;
-    //ui.progressBar->setValue(throttle);
-    //std::stringstream ss;
-    //cout << (throttle_holder->throttle_pc)*100 <<"  %"<< endl;
-    //ss << message_holder.data;
-    //log(Info, message_holder);
-    //ROS_INFO("check ThrottleInfoReport");
-    //really could do something interesting here with the received data...but all we do is print it
-}
+ }
 
 
 void QNode::myCallback(const std_msgs::Float64& message_holder)
@@ -127,6 +171,8 @@ void QNode::myCallback(const std_msgs::Float64& message_holder)
     ROS_INFO("=============received value is: %f===========",message_holder.data);
   //really could do something interesting here with the received data...but all we do is print it
 }
+
+//////////////////////////////////////////////////////////////////////////////
 
 void QNode::run() {
 //	ros::Rate loop_rate(1);

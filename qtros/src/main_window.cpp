@@ -181,7 +181,7 @@ void MainWindow::on_pushButton_toggled(){
 void MainWindow::on_pushButton_clicked(bool check){
 
    // while(ui.checkBox->isChecked()){
-     ui.progressBar->setValue(qnode.throttle);
+    ui.progressBar->setValue(qnode.throttle);
 //    while(ui.checkBox->isChecked()){
 //        ui.progressBar->setValue(qnode.throttle);
 //    }
@@ -198,6 +198,13 @@ void MainWindow::on_pushButton_clicked(bool check){
     //setAutoRepeat (true);
 
     ui.lcdNumber->display(qnode.steering_angle);
+    ui.lcdNumber_2->display(qnode.vehicle_speed);
+    const char* c = qnode.gear.c_str();//qnode.gear.c_str();
+    ui.textBrowser->setText(c);
+   // ui.textBrowser->setText("qnode.gear");
+
+    ui.pushButton->setAutoRepeat(true);
+
 }
 
 //showButtonTestMessage();

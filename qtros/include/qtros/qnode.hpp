@@ -23,6 +23,7 @@
 #include <ros/ros.h>
 #endif
 #include <string>
+
 #include <QThread>
 #include <QStringListModel>
 #include <std_msgs/Float64.h>
@@ -30,6 +31,8 @@
 //Autoware msg
 #include <dbw_mkz_msgs/ThrottleInfoReport.h>
 #include <dbw_mkz_msgs/SteeringReport.h>
+#include <dbw_mkz_msgs/GearReport.h>
+
 
 #include "ui_main_window.h"
 
@@ -37,6 +40,7 @@
 /*****************************************************************************
 ** Namespaces
 *****************************************************************************/
+using namespace std;
 
 namespace qtros {
 
@@ -55,6 +59,11 @@ public:
         void myCallback(const std_msgs::Float64& message_holder);
         void throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr &message_holder);
         void steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &message_holder);
+        //void steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &message_holder);
+        void gear_Callback(const dbw_mkz_msgs::GearReportPtr &message_holder);
+
+
+
 
 
         /*********************
@@ -71,14 +80,16 @@ public:
 	QStringListModel* loggingModel() { return &logging_model; }
         void log( const LogLevel &level, const std_msgs::Float64 &msg);
         //void log1( const LogLevel &level, const std_msgs::Float64 &msg);
-        //float throttle;
+
 
        //車體資訊
          int throttle;
          float steering_angle;
+         float vehicle_speed;
+         string gear;
+         char* test1;
 
-        //float* throttle;
-        //static const int a;
+
 Q_SIGNALS:
 	void loggingUpdated();
         void rosShutdown();
@@ -90,6 +101,8 @@ private:
         ros::Subscriber chatter_subscriber;
         ros::Subscriber throttle_subscriber;
         ros::Subscriber steeringreport_subscriber;
+        ros::Subscriber gear_subscriber;
+
 
         QStringListModel logging_model;
 

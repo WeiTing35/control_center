@@ -103,21 +103,8 @@
        <widget class="QProgressBar" name="progressBar">
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>50</y>
-          <width>411</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="value">
-         <number>24</number>
-        </property>
-       </widget>
-       <widget class="QProgressBar" name="progressBar_2">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>200</y>
+          <x>140</x>
+          <y>40</y>
           <width>411</width>
           <height>81</height>
          </rect>
@@ -130,10 +117,15 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>20</y>
-          <width>67</width>
-          <height>17</height>
+          <y>0</y>
+          <width>111</width>
+          <height>71</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>油門</string>
@@ -143,10 +135,17 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>160</y>
-          <width>67</width>
-          <height>17</height>
+          <y>140</y>
+          <width>101</width>
+          <height>51</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
         </property>
         <property name="text">
          <string>煞車</string>
@@ -156,10 +155,15 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>300</y>
-          <width>67</width>
-          <height>17</height>
+          <y>280</y>
+          <width>161</width>
+          <height>61</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>轉向角</string>
@@ -170,9 +174,14 @@
          <rect>
           <x>50</x>
           <y>430</y>
-          <width>67</width>
-          <height>17</height>
+          <width>101</width>
+          <height>51</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>檔位</string>
@@ -181,31 +190,26 @@
        <widget class="QLabel" name="label_10">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>300</y>
-          <width>67</width>
-          <height>17</height>
+          <x>330</x>
+          <y>290</y>
+          <width>151</width>
+          <height>41</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>車速</string>
-        </property>
-       </widget>
-       <widget class="QListView" name="view_logging">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>480</y>
-          <width>181</width>
-          <height>71</height>
-         </rect>
         </property>
        </widget>
        <widget class="QLCDNumber" name="lcdNumber">
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>320</y>
+          <y>360</y>
           <width>141</width>
           <height>61</height>
          </rect>
@@ -214,8 +218,8 @@
        <widget class="QLCDNumber" name="lcdNumber_2">
         <property name="geometry">
          <rect>
-          <x>280</x>
-          <y>320</y>
+          <x>330</x>
+          <y>360</y>
           <width>141</width>
           <height>61</height>
          </rect>
@@ -224,18 +228,90 @@
        <widget class="QTextBrowser" name="textBrowser">
         <property name="geometry">
          <rect>
-          <x>270</x>
-          <y>480</y>
-          <width>256</width>
+          <x>50</x>
+          <y>490</y>
+          <width>141</width>
           <height>61</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:20pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;kj&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLCDNumber" name="lcdNumber_3">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>190</y>
+          <width>221</width>
+          <height>81</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_11">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>190</y>
+          <width>181</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>28</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>(Nm)</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>370</y>
+          <width>181</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>(公里/小時)</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_13">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>370</y>
+          <width>101</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>(角度)</string>
         </property>
        </widget>
       </widget>
@@ -254,7 +330,7 @@ p, li { white-space: pre-wrap; }
    </property>
    <widget class="QMenu" name="menu_File">
     <property name="title">
-     <string>&amp;App</string>
+     <string>NCKU Control Center</string>
     </property>
     <addaction name="action_Preferences"/>
     <addaction name="separator"/>
@@ -263,7 +339,13 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
+   <widget class="QMenu" name="menuNCKU_Control_Center">
+    <property name="title">
+     <string> </string>
+    </property>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menuNCKU_Control_Center"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dock_status">
@@ -276,7 +358,7 @@ p, li { white-space: pre-wrap; }
    <property name="minimumSize">
     <size>
      <width>411</width>
-     <height>622</height>
+     <height>675</height>
     </size>
    </property>
    <property name="allowedAreas">
@@ -479,6 +561,9 @@ p, li { white-space: pre-wrap; }
            <string>PushButton</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="QListView" name="view_logging"/>
         </item>
         <item>
          <spacer name="verticalSpacer_3">

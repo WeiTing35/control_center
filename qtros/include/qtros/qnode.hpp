@@ -32,6 +32,7 @@
 #include <dbw_mkz_msgs/ThrottleInfoReport.h>
 #include <dbw_mkz_msgs/SteeringReport.h>
 #include <dbw_mkz_msgs/GearReport.h>
+#include <dbw_mkz_msgs/BrakeReport.h>
 
 
 #include "ui_main_window.h"
@@ -59,8 +60,9 @@ public:
         void myCallback(const std_msgs::Float64& message_holder);
         void throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr &message_holder);
         void steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &message_holder);
-        //void steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &message_holder);
         void gear_Callback(const dbw_mkz_msgs::GearReportPtr &message_holder);
+        void brake_Callback(const dbw_mkz_msgs::BrakeReportPtr &message_holder);
+
 
 
 
@@ -88,6 +90,7 @@ public:
          float vehicle_speed;
          string gear;
          char* test1;
+         float brake;
 
 
 Q_SIGNALS:
@@ -102,7 +105,7 @@ private:
         ros::Subscriber throttle_subscriber;
         ros::Subscriber steeringreport_subscriber;
         ros::Subscriber gear_subscriber;
-
+        ros::Subscriber brake_subscriber;
 
         QStringListModel logging_model;
 

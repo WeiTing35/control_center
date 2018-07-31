@@ -58,11 +58,11 @@ bool QNode::init() {
 
 
 
-    chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
+    //chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
     steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
     gear_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::gear_Callback, this);
-
+    brake_subscriber = n.subscribe("vehicle/brake_report", 1000, &QNode::brake_Callback, this);
 
 	start();
 	return true;
@@ -85,6 +85,7 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
     steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
     gear_subscriber = n.subscribe("vehicle/gear_report", 1000, &QNode::gear_Callback, this);
+    brake_subscriber = n.subscribe("vehicle/brake_report", 1000, &QNode::brake_Callback, this);
 
 
 	start();
@@ -95,6 +96,18 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// \brief Callback
 ///////////////////////////////////////////////////
+///
+///
+
+
+void QNode::brake_Callback(const dbw_mkz_msgs::BrakeReportPtr  &brake_holder)
+{
+    brake=brake_holder->torque_output;
+
+}
+
+
+
 void QNode::gear_Callback(const dbw_mkz_msgs::GearReportPtr  &gear_holder)
 {
 //  uint8_t a=1;

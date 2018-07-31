@@ -180,13 +180,6 @@ void MainWindow::on_pushButton_toggled(){
 //show
 void MainWindow::on_pushButton_clicked(bool check){
 
-   // while(ui.checkBox->isChecked()){
-    ui.progressBar->setValue(qnode.throttle);
-//    while(ui.checkBox->isChecked()){
-//        ui.progressBar->setValue(qnode.throttle);
-//    }
-
-    //steer angle
     logging_model = qnode.loggingModel();
     logging_model->insertRows(logging_model->rowCount(), 1);
     std::stringstream logging_model_msg;
@@ -194,14 +187,14 @@ void MainWindow::on_pushButton_clicked(bool check){
     QVariant new_row(QString(logging_model_msg.str().c_str()));
     logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
     std::cout << logging_model_msg.str().c_str() << std::endl;
-    //}
-    //setAutoRepeat (true);
 
+    ui.progressBar->setValue(qnode.throttle);
     ui.lcdNumber->display(qnode.steering_angle);
     ui.lcdNumber_2->display(qnode.vehicle_speed);
     const char* c = qnode.gear.c_str();//qnode.gear.c_str();
     ui.textBrowser->setText(c);
-   // ui.textBrowser->setText("qnode.gear");
+    ui.lcdNumber_3->display(qnode.brake);
+
 
     ui.pushButton->setAutoRepeat(true);
 

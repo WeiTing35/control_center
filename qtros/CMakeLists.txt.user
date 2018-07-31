@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.5.1, 2018-07-27T14:39:03. -->
+<!-- Written by QtCreator 3.5.1, 2018-07-31T15:21:40. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -70,7 +70,9 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets"/>
+      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
+       <value type="QString">all</value>
+      </valuelist>
       <value type="bool" key="CMakeProjectManager.MakeStep.Clean">false</value>
       <value type="QString" key="CMakeProjectManager.MakeStep.MakeCommand"></value>
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -85,9 +87,9 @@
     </valuemap>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments">clean</value>
+      <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
       <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets"/>
-      <value type="bool" key="CMakeProjectManager.MakeStep.Clean">true</value>
+      <value type="bool" key="CMakeProjectManager.MakeStep.Clean">false</value>
       <value type="QString" key="CMakeProjectManager.MakeStep.MakeCommand"></value>
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>

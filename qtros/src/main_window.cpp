@@ -63,9 +63,11 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
         on_button_connect_clicked(true);
     }
 
-   QObject::connect(ui.pushButton, SIGNAL(toggled(bool)), qApp, SLOT(refreshUi()));
-  // QObject::connect(ui.pushButton1, SIGNAL(toggled(bool)), this, SLOT(moveLeft()));
-   QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft()));
+   //QObject::connect(ui.pushButton, SIGNAL(toggled(bool)), qApp, SLOT(refreshUi()));
+   // QObject::connect(ui.pushButton1, SIGNAL(toggled(bool)), this, SLOT(moveLeft()));
+   //QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft()));
+    QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(  moveLeft()));
+
    //ui.progressBar->setValue(11);
    //ui.progressBar->setValue(11);
    //show=qtros::QNode::throttle;int
@@ -105,15 +107,16 @@ void MainWindow::showNoMasterMessage() {
  * is already checked or not.
  */
 void MainWindow::moveLeft() {
-      logging_model = qnode.loggingModel();
-      logging_model->insertRows(logging_model->rowCount(), 1);
-      std::stringstream logging_model_msg;
-      logging_model_msg << "move to left ...";
-      QVariant new_row(QString(logging_model_msg.str().c_str()));
-      logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
+//      logging_model = qnode.loggingModel();
+//      logging_model->insertRows(logging_model->rowCount(), 1);
+//      std::stringstream logging_model_msg;
+//      logging_model_msg << "move to left ...";
+//      QVariant new_row(QString(logging_model_msg.str().c_str()));
+//      logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
 
-      std::cout << logging_model->rowCount() << std::endl;
-      std::cout << logging_model_msg.str().c_str() << std::endl;
+//      std::cout << logging_model->rowCount() << std::endl;
+//      std::cout << logging_model_msg.str().c_str() << std::endl;
+    system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./kafka-server-start.sh ../config/server.properties'");
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +180,7 @@ void MainWindow::on_pushButton_toggled(){
     ui.progressBar->setValue(qnode.throttle);
 }
 
-//show
+//
 void MainWindow::on_pushButton_clicked(bool check){
 
     logging_model = qnode.loggingModel();
@@ -200,28 +203,35 @@ void MainWindow::on_pushButton_clicked(bool check){
 
 }
 
-//showButtonTestMessage();
+//kafka-1
 void MainWindow::on_button_test_clicked(bool check) {
 
 
  //ui.view_logging->scrollToBottom();
 
-   logging_model = qnode.loggingModel();
-   logging_model->insertRows(logging_model->rowCount(), 1);
-   std::stringstream logging_model_msg;
-   logging_model_msg << "text on the list";
-   QVariant new_row(QString(logging_model_msg.str().c_str()));
-   logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
+//   logging_model = qnode.loggingModel();
+//   logging_model->insertRows(logging_model->rowCount(), 1);
+//   std::stringstream logging_model_msg;
+//   logging_model_msg << "text on the list";
+//   QVariant new_row(QString(logging_model_msg.str().c_str()));
+//   logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
 
-   std::cout << logging_model->rowCount() << std::endl;
-   std::cout << logging_model_msg.str().c_str() << std::endl;
+//   std::cout << logging_model->rowCount() << std::endl;
+//   std::cout << logging_model_msg.str().c_str() << std::endl;
+//    QMessageBox msgBox;
+//    msgBox.setText("Open kafka");
+    system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./zookeeper-server-start.sh ../config/zookeeper.properties'");
+    //system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./kafka-server-start.sh ../config/server.properties'");
+//    msgBox.exec();
+
 
 }
 
 //button subscribe
 void MainWindow::on_pushButton1_clicked(bool check) {
-
-     showButtonTestMessage();
+    QMessageBox msgBox;
+    msgBox.setText("Open rviz");
+     //showButtonTestMessage();
 
 }
 

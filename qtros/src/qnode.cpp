@@ -97,7 +97,7 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 /// \brief Callback
 ///////////////////////////////////////////////////
 ///
-///
+
 
 
 void QNode::brake_Callback(const dbw_mkz_msgs::BrakeReportPtr  &brake_holder)
@@ -110,9 +110,7 @@ void QNode::brake_Callback(const dbw_mkz_msgs::BrakeReportPtr  &brake_holder)
 
 void QNode::gear_Callback(const dbw_mkz_msgs::GearReportPtr  &gear_holder)
 {
-//  uint8_t a=1;
 
-    //const char *char_pointer2 = reinterpret_cast<char*>( gear_holder->state._gear_type);
 
   if(gear_holder->state.gear == 1){
       gear = "P (PARK)" ;
@@ -137,15 +135,8 @@ void QNode::gear_Callback(const dbw_mkz_msgs::GearReportPtr  &gear_holder)
 //  uint8 DRIVE=4
 //  uint8 LOW=5
 
-  //char* chr_gear = gear;
-  //string str=gear;
-  //test1=str.c_str();
-  //vector<char> chr_gear(str.c_str(), str.c_str() + str.size() + 1);
   cout << gear_holder->state.gear << endl;
-  //const char *char_pointer2 = reinterpret_cast<char*>(gear_holder->state.Type);
-  //cout << char_pointer2 << endl;
-  //cout << gear_holder->state.  << endl;
-  //cout << str << endl;
+
 }
 
 
@@ -160,16 +151,12 @@ void QNode::steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &steer
 
     //cout << steering_angle << " °"<< endl;
     //cout << vehicle_speed << " (km/hr)" << endl;
-
-
     //cout << (throttle_holder->throttle_pc)*100 <<"  %"<< endl;
 
 }
 
 void QNode::throttle_Callback(const dbw_mkz_msgs::ThrottleInfoReportConstPtr  &throttle_holder)
-{
-    //qtros::QNode::MainWindow::
-    //&throttle = (throttle_holder->throttle_pc)*100;
+{   
     float temp=(throttle_holder->throttle_pc)*100;
     throttle= (int)temp;
 
@@ -182,7 +169,7 @@ void QNode::myCallback(const std_msgs::Float64& message_holder)
     //ss << message_holder.data;
     log(Info, message_holder);
     ROS_INFO("=============received value is: %f===========",message_holder.data);
-  //really could do something interesting here with the received data...but all we do is print it
+    //really could do something interesting here with the received data...but all we do is print it
 }
 
 //////////////////////////////////////////////////////////////////////////////

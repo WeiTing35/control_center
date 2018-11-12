@@ -33,11 +33,6 @@ int main(int argc, char **argv) {
     app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     int result = app.exec();
 
-    //for show
-//    while(1){
-//        w.refreshUi();
-//        sleep(1);
-//    }
 
 	return result;
 }

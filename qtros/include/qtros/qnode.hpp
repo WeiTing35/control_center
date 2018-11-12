@@ -33,7 +33,9 @@
 #include <dbw_mkz_msgs/SteeringReport.h>
 #include <dbw_mkz_msgs/GearReport.h>
 #include <dbw_mkz_msgs/BrakeReport.h>
-
+#include <dbw_mkz_msgs/FuelLevelReport.h>
+#include <dbw_mkz_msgs/TurnSignalCmd.h>
+#include <dbw_mkz_msgs/WheelSpeedReport.h>
 
 #include "ui_main_window.h"
 
@@ -62,6 +64,10 @@ public:
         void steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &message_holder);
         void gear_Callback(const dbw_mkz_msgs::GearReportPtr &message_holder);
         void brake_Callback(const dbw_mkz_msgs::BrakeReportPtr &message_holder);
+        void fuel_Callback(const dbw_mkz_msgs::FuelLevelReportPtr &fuel_holder);
+        void turn_signal_Callback(const dbw_mkz_msgs::TurnSignalCmdPtr &turn_signal_holder);
+        void wheel_speed_Callback(const dbw_mkz_msgs::WheelSpeedReportPtr &wheel_speed_holder);
+        void control_mode_Callback(const dbw_mkz_msgs::WheelSpeedReportPtr &wheel_speed_holder);
 
 
 
@@ -84,14 +90,17 @@ public:
         //void log1( const LogLevel &level, const std_msgs::Float64 &msg);
 
 
-       //車體資訊
+         //車體資訊
          int throttle;
          float steering_angle;
          float vehicle_speed;
          string gear;
          char* test1;
          float brake;
-
+         float fuel_level;
+         string turn_signal;
+         float wheel_speed;
+         string control_mode;
 
 Q_SIGNALS:
 	void loggingUpdated();
@@ -106,6 +115,11 @@ private:
         ros::Subscriber steeringreport_subscriber;
         ros::Subscriber gear_subscriber;
         ros::Subscriber brake_subscriber;
+        ros::Subscriber fuel_subscriber;
+        ros::Subscriber turn_signal_subscriber;
+        ros::Subscriber wheel_speed_subscriber;
+        ros::Subscriber control_mode_subscriber;
+
 
         QStringListModel logging_model;
 

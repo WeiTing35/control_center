@@ -15,7 +15,7 @@
 #include <QtGui/QMainWindow>
 #include "ui_main_window.h"
 #include "qnode.hpp"
-
+#include "widget.h"
 
 
 /*****************************************************************************
@@ -59,7 +59,10 @@ public Q_SLOTS:
 
         void moveLeft();
 
-        void on_pushButton_toggled() ;
+
+        //顯示車體資訊
+        //void on_pushButton_pressed() ;
+        //void on_pushButton_released() ;
         void on_pushButton_clicked(bool check) ;
     /******************************************
     ** Manual connections

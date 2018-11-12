@@ -55,14 +55,16 @@ bool QNode::init() {
 	// Add your ros communications here.
     //chatter_publisher = n.advertise<std_msgs::String>("chatter11", 1000);
 
-
-
-
     //chatter_subscriber = n.subscribe("chatter", 1000, &QNode::myCallback, this);
     throttle_subscriber = n.subscribe("vehicle/throttle_info_report", 1000, &QNode::throttle_Callback, this);
     steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
     gear_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::gear_Callback, this);
     brake_subscriber = n.subscribe("vehicle/brake_report", 1000, &QNode::brake_Callback, this);
+    fuel_subscriber = n.subscribe("vehicle/fuel_level_report", 1000, &QNode::fuel_Callback, this);
+    turn_signal_subscriber = n.subscribe("vehicle/turn_signal_cmd", 1000, &QNode::turn_signal_Callback, this);
+    wheel_speed_subscriber = n.subscribe("vehicle/wheel_speed_report", 1000, &QNode::wheel_speed_Callback, this);
+    control_mode_subscriber = n.subscribe("vehicle/wheel_speed_report", 1000, &QNode::wheel_speed_Callback, this);
+
 
 	start();
 	return true;
@@ -86,6 +88,10 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
     steeringreport_subscriber = n.subscribe("vehicle/steering_report", 1000, &QNode::steeringreport_Callback, this);
     gear_subscriber = n.subscribe("vehicle/gear_report", 1000, &QNode::gear_Callback, this);
     brake_subscriber = n.subscribe("vehicle/brake_report", 1000, &QNode::brake_Callback, this);
+    fuel_subscriber = n.subscribe("vehicle/fuel_level_report", 1000, &QNode::fuel_Callback, this);
+    turn_signal_subscriber = n.subscribe("vehicle/turn_signal_cmd", 1000, &QNode::turn_signal_Callback, this);
+    wheel_speed_subscriber = n.subscribe("vehicle/wheel_speed_report", 1000, &QNode::wheel_speed_Callback, this);
+    control_mode_subscriber = n.subscribe("vehicle/wheel_speed_report", 1000, &QNode::wheel_speed_Callback, this);
 
 
 	start();
@@ -97,6 +103,44 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 /// \brief Callback
 ///////////////////////////////////////////////////
 ///
+//void QNode::control_mode_Callback(const dbw_mkz_msgs::WheelSpeedReportPtr  &control_mode_holder)
+//{
+////    if(turn_signal_holder->cmd.value == 0){
+////        turn_signal = "NONE" ;
+////    }
+////    else if(turn_signal_holder->cmd.value == 1){
+////        turn_signal = "LEFT" ;
+////    }
+//}
+
+
+void QNode::wheel_speed_Callback(const dbw_mkz_msgs::WheelSpeedReportPtr  &wheel_speed_holder)
+{
+   wheel_speed=  wheel_speed_holder->rear_left+ wheel_speed_holder->rear_right;
+
+}
+
+void QNode::turn_signal_Callback(const dbw_mkz_msgs::TurnSignalCmdPtr  &turn_signal_holder)
+{
+    if(turn_signal_holder->cmd.value == 0){
+        turn_signal = "NONE" ;
+    }
+    else if(turn_signal_holder->cmd.value == 1){
+        turn_signal = "LEFT" ;
+    }
+    else if(turn_signal_holder->cmd.value == 2){
+        turn_signal = "RIGHT" ;
+    }
+
+}
+
+
+
+void QNode::fuel_Callback(const dbw_mkz_msgs::FuelLevelReportPtr  &fuel_holder)
+{
+   fuel_level=fuel_holder->fuel_level;
+
+}
 
 
 
@@ -148,10 +192,6 @@ void QNode::steeringreport_Callback(const dbw_mkz_msgs::SteeringReportPtr &steer
     // Vehicle Speed
     vehicle_speed = (steeringreport_holder->speed)*3600/1000; //(m/s)to(km/hour)
 
-
-    //cout << steering_angle << " °"<< endl;
-    //cout << vehicle_speed << " (km/hr)" << endl;
-    //cout << (throttle_holder->throttle_pc)*100 <<"  %"<< endl;
 
 }
 

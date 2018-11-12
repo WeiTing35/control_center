@@ -68,21 +68,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
    //QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft()));
     QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(  moveLeft()));
 
-   //ui.progressBar->setValue(11);
-   //ui.progressBar->setValue(11);
-   //show=qtros::QNode::throttle;int
 
-   // ui.progressBar->setValue(77.5);
-   // qtros::QNode::throttle=1;
-
-  //ui.progressBar->setValue(qtros::QNode::a);
-  //ui.progressBar->setValue(qtros::QNode::throttle);
-
-   //ui.progressBar->setValue(value);
-   //ui.progressBar->setValue(qtros::QNode::a);
-   //connect(throttle,SIGNAL(valueChanged(int)),ui.progressBar,SLOT(setValue(int)));
-
-   //ui.listView_2->setModel("sss");
 
 }
 
@@ -107,15 +93,7 @@ void MainWindow::showNoMasterMessage() {
  * is already checked or not.
  */
 void MainWindow::moveLeft() {
-//      logging_model = qnode.loggingModel();
-//      logging_model->insertRows(logging_model->rowCount(), 1);
-//      std::stringstream logging_model_msg;
-//      logging_model_msg << "move to left ...";
-//      QVariant new_row(QString(logging_model_msg.str().c_str()));
-//      logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
 
-//      std::cout << logging_model->rowCount() << std::endl;
-//      std::cout << logging_model_msg.str().c_str() << std::endl;
     system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./kafka-server-start.sh ../config/server.properties'");
 }
 
@@ -168,19 +146,28 @@ void MainWindow::showButtonTestMessage() {
 }
 
 
+//void MainWindow::on_pushButton_pressed(){
 
-void MainWindow::on_pushButton_toggled(){
 
-    //system("gnome-terminal -x bash -c  'source ~/catkin_ws/devel/setup.bash;  rostopic echo /chatter '");
-    //system("gnome-terminal -x bash -c  'source ~/catkin_ws/devel/setup.bash;  rostopic echo /chatter '");
-//    while(1){
-//        ui.progressBar->setValue(qnode.throttle);
-//        sleep(1);
-//    }
-    ui.progressBar->setValue(qnode.throttle);
-}
+//    ui.progressBar->setValue(qnode.throttle);
 
-//
+//    if(!timer1)
+//        {
+//            timer1 = new QTimer();
+//            connect(timer1,&QTimer::timeout,this,&MainWindow::on_pushButton_clicked);
+//        }
+//        timer1->start(100);
+
+//}
+
+
+//void MainWindow::on_pushButton_released(){
+
+
+//      timer1->stop();
+//}
+
+//顯示車體資訊
 void MainWindow::on_pushButton_clicked(bool check){
 
     logging_model = qnode.loggingModel();
@@ -191,15 +178,29 @@ void MainWindow::on_pushButton_clicked(bool check){
     logging_model->setData(logging_model->index(logging_model->rowCount()-1), new_row);
     std::cout << logging_model_msg.str().c_str() << std::endl;
 
+
+    //progressBar
     ui.progressBar->setValue(qnode.throttle);
+    ui.progressBar_2->setValue(qnode.fuel_level);
+
+
+    //lcdNumber
     ui.lcdNumber->display(qnode.steering_angle);
     ui.lcdNumber_2->display(qnode.vehicle_speed);
+    ui.lcdNumber_3->display(qnode.brake);
+    ui.lcdNumber_4->display(qnode.wheel_speed);
+
+    //textBrowser
     const char* c = qnode.gear.c_str();//qnode.gear.c_str();
     ui.textBrowser->setText(c);
-    ui.lcdNumber_3->display(qnode.brake);
+    const char* d = qnode.turn_signal.c_str();
+    ui.textBrowser_11->setText(d);
 
 
-    ui.pushButton->setAutoRepeat(true);
+
+
+
+    //ui.pushButton->setAutoRepeat(true);
 
 }
 

@@ -2,5 +2,6 @@
 
 
     <!-- Start rviz with a pre-configured AerialMap instance. It will use the fake GPS fix from above. -->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find qtros)/rviz/esr.rviz"/>
+    <node pkg="rviz" type="rviz" name="rviz_1" args="-d $(find qtros)/rviz/esr.rviz"/>
+    <node pkg="rviz" type="rviz" name="rviz_2" args="-d $(find qtros)/rviz/mobileye.rviz"/>
 </launch>

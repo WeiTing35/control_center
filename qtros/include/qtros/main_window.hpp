@@ -56,8 +56,12 @@ public Q_SLOTS:
 	void on_checkbox_use_environment_stateChanged(int state);
         void on_button_test_clicked(bool check);
         void on_pushButton1_clicked(bool check) ;
-
         void moveLeft();
+        void on_pushButton_3_clicked(bool check) ;
+        void on_pushButton_4_clicked(bool check) ;
+        void on_pushButton_7_clicked(bool check) ;
+        void on_pushButton_5_clicked(bool check) ;
+        void on_pushButton_6_clicked(bool check) ;
 
 
         //顯示車體資訊

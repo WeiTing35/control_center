@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="veh_frame_id" default="base_link" />
+  
+  <!-- vlp16 arguments -->
+  <arg name="vlp16_1_calibration" default="$(find velodyne_pointcloud)/params/VLP16db.yaml"/>
+  <arg name="vlp16_1_device_ip" default="192.168.1.201" />
+  <arg name="vlp16_1_port" default="2368" />
+  <arg name="vlp16_1_frame_id" default="vlp16_1" />
+  <arg name="vlp16_1_manager" default="$(arg vlp16_1_frame_id)_nodelet_manager" />
+  <arg name="vlp16_2_calibration" default="$(find velodyne_pointcloud)/params/VLP16db.yaml"/>
+  <arg name="vlp16_2_device_ip" default="192.168.2.201" />
+  <arg name="vlp16_2_port" default="2369" />
+  <arg name="vlp16_2_frame_id" default="vlp16_2" />
+  <arg name="vlp16_2_manager" default="$(arg vlp16_2_frame_id)_nodelet_manager" />
+
+  <!-- ESR arguments -->
+  <arg name="esr_frame_id" default="delphi_esr"/>
+  <arg name="esr_upside_down" default="false"/>
+  <arg name="esr_can_hardware_id" default="10265"/>
+  <arg name="esr_can_circuit_id" default="1"/>
+  <arg name="viz_mature_tracks_only" default="true"/>
+
+  <!-- Mobileye arguments -->
+  <arg name="mobileye_frame_id" default="mobileye"/>
+  <arg name="mobileye_viz_frame_id" default="mobileye_viz"/>
+  <arg name="mobileye_can_hardware_id" default="10265"/>
+  <arg name="mobileye_can_circuit_id" default="0"/>
+
+  <!-- SRR arguments -->
+  <arg name="srr_1_frame_id" default="srr_left"/>
+  <arg name="srr_1_side" default="left"/>
+  <arg name="srr_1_can_hardware_id" default="10265"/>
+  <arg name="srr_1_can_circuit_id" default="2"/>
+  <arg name="srr_2_frame_id" default="srr_right"/>
+  <arg name="srr_2_side" default="right"/>
+  <arg name="srr_2_can_hardware_id" default="10265"/>
+  <arg name="srr_2_can_circuit_id" default="2"/>
+
+<!-- Xsens Arguements -->
+    <arg name="xsens_device" default="auto" doc="device file of the IMU"/>
+    <arg name="xsens_baudrate" default="0" doc="baudrate of the IMU"/>
+    <arg name="xsens_timeout" default="0.002" doc="timeout for the IMU communication"/>
+    <arg name="xsens_frame_id" default="imu" doc="frame id of the IMU"/>
+    <arg name="xsens_frame_local" default="ENU" doc="desired frame orientation (ENU, NED or NWU)"/>
+    <arg name="xsens_no_rotation_duration" default="0" doc="duration (int in seconds) of the no-rotation calibration procedure"/>  
+
+
+  <!-- launch config -->
+  <arg name="with_dbw" default="true" />
+  <arg name="with_vlp16s" default="true" />
+  <arg name="with_esr" default="true" />
+  <arg name="with_srrs" default="true" />
+  <arg name="with_mobileye" default="true" />
+  <arg name="with_xsens" default="true" />
+  
+  <!-- transforms -->
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg esr_frame_id)" args="3.72618 0 0.0381 0 0 0 $(arg veh_frame_id) $(arg esr_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg srr_1_frame_id)" args="-0.95 0.74 0.4 1.8326 0 0 $(arg veh_frame_id) $(arg srr_1_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg srr_2_frame_id)" args="-0.95 -0.74 0.4 -1.8326 0 0 $(arg veh_frame_id) $(arg srr_2_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg mobileye_frame_id)" args="0 0 0 0 0 0 $(arg veh_frame_id) $(arg mobileye_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg mobileye_viz_frame_id)" args="0 0 0 0 0 0 $(arg mobileye_frame_id) $(arg mobileye_viz_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg vlp16_1_frame_id)" args="1.72085 0 1.27508 0 0.244346 0 $(arg veh_frame_id) $(arg vlp16_1_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg vlp16_2_frame_id)" args="0.3048 0 1.27508 3 0.25 0 $(arg veh_frame_id) $(arg vlp16_2_frame_id) 100" />
+  <node pkg="tf" type="static_transform_publisher" name="$(arg veh_frame_id)_to_$(arg xsens_frame_id)" args="0 0 0 0 0 0 $(arg veh_frame_id) $(arg xsens_frame_id) 100" />
+  <group if="$(arg with_dbw)">
+    <include file="$(find dbw_mkz_can)/launch/dbw.launch" />
+  </group>
+
+ <group if="$(arg with_vlp16s)">
+	<group ns="$(arg vlp16_1_frame_id)">
+		<!-- start nodelet manager -->
+		  <node pkg="nodelet" type="nodelet" name="$(arg vlp16_1_manager)" args="manager" />
+
+		  <!-- load driver nodelet into it -->
+		  <node pkg="nodelet" type="nodelet" name="$(arg vlp16_1_manager)_driver"
+			args="load velodyne_driver/DriverNodelet $(arg vlp16_1_manager)" >
+		    <param name="device_ip" value="$(arg vlp16_1_device_ip)" />
+		    <param name="frame_id" value="$(arg vlp16_1_frame_id)"/>
+		    <param name="model" value="VLP16"/>
+		    <param name="pcap" value=""/>
+		    <param name="port" value="$(arg vlp16_1_port)" />
+		    <param name="read_fast" value="false"/>
+		    <param name="read_once" value="false"/>
+		    <param name="repeat_delay" value="0.0"/>
+		    <param name="rpm" value="600.0"/>
+		  </node>
+		<node pkg="nodelet" type="nodelet" name="$(arg vlp16_1_manager)_cloud"
+		args="load velodyne_pointcloud/CloudNodelet $(arg vlp16_1_manager)">
+		    <param name="calibration" value="$(arg vlp16_1_calibration)"/>
+		    <param name="max_range" value="130.0"/>
+		    <param name="min_range" value="1.0"/>
+		  </node>
+	  </group>
+	<group ns="$(arg vlp16_2_frame_id)">
+		<!-- start nodelet manager -->
+		  <node pkg="nodelet" type="nodelet" name="$(arg vlp16_2_manager)" args="manager" />
+
+		  <!-- load driver nodelet into it -->
+		  <node pkg="nodelet" type="nodelet" name="$(arg vlp16_2_manager)_driver"
+			args="load velodyne_driver/DriverNodelet $(arg vlp16_2_manager)" >
+		    <param name="device_ip" value="$(arg vlp16_2_device_ip)" />
+		    <param name="frame_id" value="$(arg vlp16_2_frame_id)"/>
+		    <param name="model" value="VLP16"/>
+		    <param name="pcap" value=""/>
+		    <param name="port" value="$(arg vlp16_2_port)" />
+		    <param name="read_fast" value="false"/>
+		    <param name="read_once" value="false"/>
+		    <param name="repeat_delay" value="0.0"/>
+		    <param name="rpm" value="600.0"/>
+		  </node>
+		<node pkg="nodelet" type="nodelet" name="$(arg vlp16_2_manager)_cloud"
+		args="load velodyne_pointcloud/CloudNodelet $(arg vlp16_2_manager)">
+		    <param name="calibration" value="$(arg vlp16_2_calibration)"/>
+		    <param name="max_range" value="130.0"/>
+		    <param name="min_range" value="1.0"/>
+		  </node>
+	  </group>
+
+  </group>
+
+  
+  <group if="$(arg with_esr)">
+    <node if="$(arg with_dbw)" ns="$(arg esr_frame_id)" pkg="topic_tools" type="relay" name="dbw_to_esr" args=" /vehicle/twist as_rx/vehicle_motion" />
+    <node pkg="delphi_esr" type="delphi_esr_can" name="delphi_esr" >
+        <!-- can configuration -->    
+        <param name="can_hardware_id" value="$(arg esr_can_hardware_id)"/>
+        <param name="can_circuit_id" value="$(arg esr_can_circuit_id)"/>
+        <param name="sensor_frame_id" value="$(arg esr_frame_id)"/>
+        <param name="esr_upside_down" value="$(arg esr_upside_down)"/>
+        <param name="viz_mature_tracks_only" value="$(arg viz_mature_tracks_only)"/>
+    </node>
+  </group>
+
+  <group if="$(arg with_srrs)">
+    <node pkg="delphi_srr" type="delphi_srr" name="$(arg srr_1_frame_id)" ns="$(arg srr_1_frame_id)" >
+        <param name="can_hardware_id" value="$(arg srr_1_can_hardware_id)"/>
+        <param name="can_circuit_id" value="$(arg srr_1_can_circuit_id)"/>
+        <param name="sensor_frame_id" value="$(arg srr_1_frame_id)"/>
+        <param name="srr_side" value="$(arg srr_1_side)"/>
+    </node>
+    <node pkg="delphi_srr" type="delphi_srr" name="$(arg srr_2_frame_id)" ns="$(arg srr_2_frame_id)" >
+        <param name="can_hardware_id" value="$(arg srr_2_can_hardware_id)"/>
+        <param name="can_circuit_id" value="$(arg srr_2_can_circuit_id)"/>
+        <param name="sensor_frame_id" value="$(arg srr_2_frame_id)"/>
+        <param name="srr_side" value="$(arg srr_2_side)"/>
+    </node>
+  </group>
+
+
+  <group ns="$(arg mobileye_frame_id)" if="$(arg with_mobileye)">
+    <node pkg="mobileye_560_660" type="mobileye_560_660" name="$(arg mobileye_frame_id)">
+        <!-- CAN configuration -->
+        <param name="can_hardware_id" value="$(arg mobileye_can_hardware_id)" />
+        <param name="can_circuit_id" value="$(arg mobileye_can_circuit_id)" />
+        <!-- tf configuration -->
+        <param name="viz_frame_id" value="$(arg mobileye_viz_frame_id)" />
+        <param name="sensor_frame_id" value="$(arg mobileye_frame_id)" />
+    </node>
+  </group>
+
+  <group ns="$(arg xsens_frame_id)" if="$(arg with_xsens)">
+	<node pkg="xsens_driver" type="mtnode.py" name="xsens_driver" output="screen" >
+		<param name="device" value="$(arg xsens_device)"/>
+		<param name="baudrate" value="$(arg xsens_baudrate)"/>
+		<param name="timeout" value="$(arg xsens_timeout)"/>
+		<param name="frame_id" value="$(arg xsens_frame_id)"/>
+		<param name="frame_local" value="$(arg xsens_frame_local)"/>
+		<param name="no_rotation_duration" value="$(arg xsens_no_rotation_duration)"/>
+	</node>    
+   </group>
+
+</launch>

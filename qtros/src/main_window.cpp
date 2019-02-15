@@ -66,7 +66,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
    //QObject::connect(ui.pushButton, SIGNAL(toggled(bool)), qApp, SLOT(refreshUi()));
    // QObject::connect(ui.pushButton1, SIGNAL(toggled(bool)), this, SLOT(moveLeft()));
    //QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(moveLeft()));
-    QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT(  moveLeft()));
+    QObject::connect(ui.pushButton1, SIGNAL(clicked()), this, SLOT( moveLeft()));
 
 
 
@@ -208,7 +208,7 @@ void MainWindow::on_pushButton_clicked(bool check){
 void MainWindow::on_button_test_clicked(bool check) {
 
 
- //ui.view_logging->scrollToBottom();
+//ui.view_logging->scrollToBottom();
 
 //   logging_model = qnode.loggingModel();
 //   logging_model->insertRows(logging_model->rowCount(), 1);
@@ -221,8 +221,8 @@ void MainWindow::on_button_test_clicked(bool check) {
 //   std::cout << logging_model_msg.str().c_str() << std::endl;
 //    QMessageBox msgBox;
 //    msgBox.setText("Open kafka");
-    system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./zookeeper-server-start.sh ../config/zookeeper.properties'");
-    //system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./kafka-server-start.sh ../config/server.properties'");
+    system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin; ./zookeeper-server-start.sh ../config/zookeeper.properties'");
+//system("gnome-terminal -x bash -c  'cd ~/Desktop/ROS_KAFKA/kafka_2.11-1.1.0/bin;  ./kafka-server-start.sh ../config/server.properties'");
 //    msgBox.exec();
 
 
@@ -235,6 +235,27 @@ void MainWindow::on_pushButton1_clicked(bool check) {
      //showButtonTestMessage();
 
 }
+
+void MainWindow::on_pushButton_3_clicked(bool check){
+    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.202:11311; export ROS_IP=192.168.43.219; roslaunch kafka_ros producer.launch'");
+}
+
+void MainWindow::on_pushButton_4_clicked(bool check){
+    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.219:11311; export ROS_IP=192.168.43.219; roslaunch kafka_ros consumer.launch'");
+}
+
+void MainWindow::on_pushButton_7_clicked(bool check){
+    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.219:11311; export ROS_IP=192.168.43.219; cd ~/Autoware/ros; ./run_no_roscore'");
+}
+
+void MainWindow::on_pushButton_5_clicked(bool check){
+    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.202:11311; export ROS_IP=192.168.43.219;roslaunch rviz_satellite ncku_image.launch'");
+}
+
+void MainWindow::on_pushButton_6_clicked(bool check){
+    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.202:11311; export ROS_IP=192.168.43.219; roslaunch qtros rm.launch'");
+}
+
 
 
 

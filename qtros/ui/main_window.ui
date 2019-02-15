@@ -37,70 +37,6 @@
        <attribute name="title">
         <string>      連線確認      </string>
        </attribute>
-       <widget class="QTabWidget" name="tab_manager">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>0</y>
-          <width>361</width>
-          <height>971</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="locale">
-         <locale language="English" country="Australia"/>
-        </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="tab_status">
-         <attribute name="title">
-          <string>Ros Communications</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QGroupBox" name="groupBox_12">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="title">
-             <string>Logging</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <item row="1" column="1">
-              <widget class="QListView" name="listView"/>
-             </item>
-             <item row="4" column="1">
-              <widget class="QTableView" name="tableView"/>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>sub</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </widget>
        <widget class="QFrame" name="frame">
         <property name="geometry">
          <rect>
@@ -282,10 +218,10 @@
        <widget class="QPushButton" name="button_test">
         <property name="geometry">
          <rect>
-          <x>680</x>
-          <y>360</y>
-          <width>191</width>
-          <height>81</height>
+          <x>20</x>
+          <y>110</y>
+          <width>411</width>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
@@ -295,10 +231,10 @@
        <widget class="QPushButton" name="pushButton1">
         <property name="geometry">
          <rect>
-          <x>880</x>
-          <y>360</y>
-          <width>191</width>
-          <height>81</height>
+          <x>20</x>
+          <y>160</y>
+          <width>411</width>
+          <height>61</height>
          </rect>
         </property>
         <property name="text">
@@ -311,10 +247,10 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>360</y>
-          <width>211</width>
-          <height>81</height>
+          <x>20</x>
+          <y>40</y>
+          <width>411</width>
+          <height>61</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -331,6 +267,71 @@
         </property>
         <property name="text">
          <string>Connect</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>230</y>
+          <width>411</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>kafka producer</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>290</y>
+          <width>411</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>kafka consumer</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>430</y>
+          <width>411</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Google map(roslaunch rviz_satellite ncku_image.launch)(master:vehicle)</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>500</y>
+          <width>411</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>mobileye/radar( roslaunch qtros rm.launch )</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_7">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>360</y>
+          <width>411</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Autoware</string>
         </property>
        </widget>
       </widget>
@@ -858,6 +859,70 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>自駕模式</string>
         </property>
+       </widget>
+       <widget class="QTabWidget" name="tab_manager">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>10</y>
+          <width>361</width>
+          <height>971</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="locale">
+         <locale language="English" country="Australia"/>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab_status">
+         <attribute name="title">
+          <string>Ros Communications</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QGroupBox" name="groupBox_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title">
+             <string>Logging</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="1" column="1">
+              <widget class="QListView" name="listView"/>
+             </item>
+             <item row="4" column="1">
+              <widget class="QTableView" name="tableView"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>sub</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </widget>
      </widget>

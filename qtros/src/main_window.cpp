@@ -249,7 +249,8 @@ void MainWindow::on_pushButton_7_clicked(bool check){
 }
 
 void MainWindow::on_pushButton_5_clicked(bool check){
-    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.202:11311; export ROS_IP=192.168.43.219;roslaunch rviz_satellite ncku_image.launch'");
+    system("gnome-terminal -x bash -c 'docker run -p 8080:8080 -d -t -v ~/mapproxy:/mapproxy danielsnider/mapproxy'");
+    system("gnome-terminal -x bash -c 'export ROS_MASTER_URI=http://192.168.43.202:11311; export ROS_IP=192.168.43.219;roslaunch rviz_satellite shalun_image.launch'");
 }
 
 void MainWindow::on_pushButton_6_clicked(bool check){

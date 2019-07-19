@@ -1,0 +1,80 @@
+<launch>
+  <arg name="launch_producer" default="true" />
+  <arg name="launch_consumer" default="false" />
+<!-- 
+<arg name="brokers" default="localhost:9092" /> 
+-->  
+  <arg name="brokers" default="localhost:9092" /> 
+  <arg name="partition" default="0" />  
+  <arg name="vehicle_id" default="vehicle" />  
+  <arg name="max_msg_size" default="1000000000" />  
+  <arg name="max_copy_msg_size" default="1000000000" />  
+  <arg name="recv_max_msg_size" default="2147483647" />  
+  <arg name="fetch_max_msg_size" default="2147483135" />  
+  <arg name="queue_max_msg_size" default="2097151" />  
+  <arg name="queue_buffer_max_msg_size" default="2097151" />  
+  <arg name="socket_send_buffer_size" default="0" />  
+  <arg name="socket_recv_buffer_size" default="0" />  
+<!-- 
+<arg name="tf_topics" default="/tf_changes" />
+--> 
+  <arg name="tf_topics" default="/tf" />
+  <arg name="pcd_topics" default="/filtered_points" />
+  <arg name="pose_topics" default="/ndt_pose" />
+  <arg name="imu_topics" default="/imu_raw" />
+  <arg name="compressed_img_topics" default="/camera/image_raw/compressed" />
+  <arg name="img_topics" default="" />
+  <arg name="marker_array_topics" default="/detection_range,/local_waypoints_mark,/global_waypoints_mark" />
+  <arg name="marker_topics" default="/next_target_mark,/trajectory_circle_mark" />
+  <arg name="can_topics" default="/can_bus_dbw/can_rx" />
+  <arg name="nmea_topics" default="/nmea_sentence" />
+
+  <node pkg="kafka_ros" type="kafka_producer_node" name="kafka_producer" output="screen" if="$(arg launch_producer)">    
+    <param name="brokers" value="$(arg brokers)" />
+    <param name="partition" value="$(arg partition)" />
+    <param name="vehicle_id" value="$(arg vehicle_id)" />
+    <param name="max_msg_size" value="$(arg max_msg_size)" />
+    <param name="max_copy_msg_size" value="$(arg max_copy_msg_size)" />
+    <param name="recv_max_msg_size" value="$(arg recv_max_msg_size)" />
+    <param name="fetch_max_msg_size" value="$(arg fetch_max_msg_size)" />
+    <param name="queue_max_msg_size" value="$(arg queue_max_msg_size)" />
+    <param name="queue_buffer_max_msg_size" value="$(arg queue_buffer_max_msg_size)" />
+    <param name="socket_send_buffer_size" value="$(arg socket_send_buffer_size)" />    
+    <param name="socket_recv_buffer_size" value="$(arg socket_recv_buffer_size)" />    
+    <param name="tf_topics" value="$(arg tf_topics)" />
+    <param name="pcd_topics" value="$(arg pcd_topics)" />
+    <param name="pose_topics" value="$(arg pose_topics)" />
+    <param name="imu_topics" value="$(arg imu_topics)" />
+    <param name="compressed_img_topics" value="$(arg compressed_img_topics)" />
+    <param name="img_topics" value="$(arg img_topics)" />
+    <param name="marker_array_topics" value="$(arg marker_array_topics)" />
+    <param name="marker_topics" value="$(arg marker_topics)" />
+    <param name="can_topics" value="$(arg can_topics)" />
+    <param name="nmea_topics" value="$(arg nmea_topics)" />
+  </node>
+   
+  <node pkg="kafka_ros" type="kafka_consumer_node" name="kafka_consumer" output="screen" if="$(arg launch_consumer)">
+    <param name="brokers" value="$(arg brokers)" />
+    <param name="partition" value="$(arg partition)" />
+    <param name="vehicle_id" value="$(arg vehicle_id)" />
+    <param name="max_msg_size" value="$(arg max_msg_size)" />
+    <param name="max_copy_msg_size" value="$(arg max_copy_msg_size)" />
+    <param name="recv_max_msg_size" value="$(arg recv_max_msg_size)" />
+    <param name="fetch_max_msg_size" value="$(arg fetch_max_msg_size)" />
+    <param name="queue_max_msg_size" value="$(arg queue_max_msg_size)" />
+    <param name="queue_buffer_max_msg_size" value="$(arg queue_buffer_max_msg_size)" />
+    <param name="socket_send_buffer_size" value="$(arg socket_send_buffer_size)" />    
+    <param name="socket_recv_buffer_size" value="$(arg socket_recv_buffer_size)" />
+    <param name="tf_topics" value="$(arg tf_topics)" />
+    <param name="pcd_topics" value="$(arg pcd_topics)" />
+    <param name="pose_topics" value="$(arg pose_topics)" />
+    <param name="imu_topics" value="$(arg imu_topics)" />
+    <param name="compressed_img_topics" value="$(arg compressed_img_topics)" />
+    <param name="img_topics" value="$(arg img_topics)" />
+    <param name="marker_array_topics" value="$(arg marker_array_topics)" />
+    <param name="marker_topics" value="$(arg marker_topics)" />
+    <param name="can_topics" value="$(arg can_topics)" />
+    <param name="nmea_topics" value="$(arg nmea_topics)" />
+  </node>
+
+</launch>

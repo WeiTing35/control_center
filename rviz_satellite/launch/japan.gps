@@ -1,0 +1,15 @@
+header:
+  seq: 999
+  stamp:
+    secs: 1435607489
+    nsecs: 924811809
+  frame_id: gps
+status:
+  status: 0
+  service: 1
+latitude: 35.23529080833
+longitude: 137.00502438833
+altitude: 38.4333
+position_covariance: [0.9409, 0.0, 0.0, 0.0, 0.9409, 0.0, 0.0, 0.0, 3.7636]
+position_covariance_type: 1
+
